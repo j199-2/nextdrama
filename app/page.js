@@ -1,37 +1,25 @@
-// TRUCO CRÍTICO: Esta línea mantiene el formato fijo y evita que se rompa la estructura
 import './globals.css'
 import { useState } from 'react'
 
 export default function Home() {
-  const [category, setCategory] = useState('')
-  const [lang, setLang] = useState('es')
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)
+  const [hasSearched, setHasSearched] = useState(false)
 
-  const categories = [
-    { id: 'romance', name: 'Romance / Amor', icon: '❤️' },
-    { id: 'venganza', name: 'Venganza', icon: '⚔️' },
-    { id: 'millonarios', name: 'Millonarios / CEOs', icon: '💰' },
-    { id: 'drama', name: 'Drama Intenso', icon: '🎭' },
-    { id: 'accion', name: 'Acción / Suspenso', icon: '🔥' }
-  ]
-
-  const handleSearch = async (selectedCat) => {
-    setCategory(selectedCat)
+  const fetchTrendingNews = async () => {
     setLoading(true)
     setResults([])
+    setHasSearched(true)
 
     try {
       const response = await fetch('/api/process', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ category: selectedCat, lang })
+        body: JSON.stringify({ action: 'get_trending' })
       })
       const json = await response.json()
       if (json.success) {
         setResults(json.data)
-      } else {
-        alert('Error al buscar dramas')
       }
     } catch (err) {
       console.error(err)
@@ -41,105 +29,130 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen text-white font-sans p-6" style={{ backgroundColor: '#050608' }}>
-      {/* Encabezado */}
-      <header className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center mb-10 border-b border-gray-800 pb-6 gap-4">
-        <div>
-          <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-blue-500 to-indigo-400 bg-clip-text text-transparent">
-            NEXTGEN DRAMAFINDER
-          </h1>
-          <p className="text-gray-400 text-sm mt-1">Ecosistema de Creadores</p>
+    <div className="min-h-screen text-white font-sans p-4 md:p-8" style={{ backgroundColor: '#050608' }}>
+      
+      {/* Encabezado Estilo Periódico Digital */}
+      <header className="max-w-5xl mx-auto text-center border-b-2 border-gray-800 pb-6 mb-8">
+        <div className="text-[11px] font-black tracking-[0.4em] text-blue-500 uppercase mb-2">
+          NEXTGEN CREATORS ECOSYSTEM • TRENDING RADAR
         </div>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent">
+          THE DRAMA JOURNAL
+        </h1>
+        <p className="text-gray-400 text-xs md:text-sm mt-2 max-w-xl mx-auto italic">
+          Filtrado estricto: Solo series con episodios gratuitos confirmados para creadores de contenido faceless.
+        </p>
 
-        {/* Selector de Idioma */}
-        <div className="flex bg-gray-900 p-1 rounded-lg border border-gray-800">
-          <button 
-            onClick={() => setLang('es')}
-            className={`px-4 py-2 text-xs font-bold rounded-md transition-all ${lang === 'es' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
+        <div className="mt-6">
+          <button
+            onClick={fetchTrendingNews}
+            disabled={loading}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 border border-blue-500/30 transform hover:-translate-y-0.5 disabled:opacity-50"
           >
-            ESP
-          </button>
-          <button 
-            onClick={() => setLang('en')}
-            className={`px-4 py-2 text-xs font-bold rounded-md transition-all ${lang === 'en' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
-          >
-            ENG
+            {loading ? "Escaneando Plataformas..." : "📰 Desplegar Series y Capítulos Gratis de Hoy"}
           </button>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto">
-        {/* Sección de Categorías */}
-        <section className="mb-12">
-          <h2 className="text-xl font-bold mb-4 text-gray-200">Selecciona una Categoría:</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => handleSearch(cat.name)}
-                disabled={loading}
-                className={`p-4 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-2 ${
-                  category === cat.name 
-                    ? 'bg-blue-600/20 border-blue-500 text-white shadow-lg shadow-blue-500/10' 
-                    : 'bg-gray-900/50 border-gray-800 text-gray-300 hover:border-gray-700 hover:bg-gray-900'
-                }`}
-              >
-                <span className="text-2xl">{cat.icon}</span>
-                <span className="text-xs font-medium">{cat.name}</span>
-              </button>
-            ))}
-          </div>
-        </section>
+      <main className="max-w-5xl mx-auto">
 
-        {/* Estado de Carga */}
+        {/* 📢 CUBÍCULO RESERVADO PARA ANUNCIOS Y PUBLICIDAD */}
+        <div className="w-full max-w-5xl mx-auto mb-8 p-4 bg-gradient-to-r from-[#111317] to-[#1a1d24] border border-dashed border-blue-500/30 rounded-2xl text-center relative overflow-hidden shadow-[inset_0_0_20px_rgba(0,191,255,0.05)]">
+          <span className="absolute top-2 left-3 text-[9px] font-black tracking-widest text-blue-400/50 uppercase">Espacio Publicitario</span>
+          <div className="py-6 flex flex-col items-center justify-center">
+            <p className="text-sm font-bold text-gray-400">🤖 Cubículo de Anuncio Disponible</p>
+            <p className="text-xs text-gray-600 mt-1">Listo para meter la publicidad, cursos o enlaces de monetización que me indiques.</p>
+          </div>
+        </div>
+
+        {/* Estado de carga */}
         {loading && (
-          <div className="flex flex-col items-center justify-center py-12 gap-3">
-            <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-sm text-gray-400 animate-pulse">Buscando los mejores dramas verticales en la web...</p>
+          <div className="flex flex-col items-center justify-center py-20 gap-3">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-sm text-gray-500 animate-pulse">Filtrando y descartando series sin contenido gratuito...</p>
           </div>
         )}
 
-        {/* Resultados */}
-        <section className="grid md:grid-cols-2 gap-6">
+        {/* Pantalla inicial */}
+        {!hasSearched && !loading && (
+          <div className="text-center py-16 bg-gray-900/10 border border-dashed border-gray-800 rounded-2xl max-w-xl mx-auto">
+            <span className="text-3xl block mb-3">🔍</span>
+            <p className="text-xs text-gray-400 max-w-xs mx-auto leading-relaxed">
+              Presiona el botón superior para cargar el feed de noticias. El sistema omitirá automáticamente cualquier plataforma bloqueada o sin episodios gratis.
+            </p>
+          </div>
+        )}
+
+        {/* Feed del Blog */}
+        <section className="space-y-6">
           {results.map((drama, idx) => (
-            <div key={idx} className="bg-gray-900/40 border border-gray-800 rounded-2xl p-6 flex flex-col justify-between hover:border-gray-700 transition-all">
-              <div>
-                <div className="flex justify-between items-start gap-2 mb-3">
-                  <h3 className="text-lg font-bold text-white line-clamp-1">{drama.title}</h3>
-                  <span className="bg-blue-900/40 text-blue-400 text-[10px] uppercase font-extrabold px-2 py-1 rounded border border-blue-800/50 whitespace-nowrap">
-                    {drama.platformName || 'Web'}
-                  </span>
+            <div 
+              key={idx} 
+              className="bg-gray-900/20 border border-gray-800 hover:border-gray-700 rounded-2xl p-6 transition-all shadow-xl grid grid-cols-1 md:grid-cols-4 gap-6"
+            >
+              {/* Columna 1: Métricas */}
+              <div className="md:border-r border-gray-800/60 md:pr-4 flex flex-col justify-between gap-3">
+                <div>
+                  <div className="text-[9px] uppercase font-black text-blue-400 tracking-wider mb-1">Impacto Viral</div>
+                  <div className="text-xs font-black text-white bg-gray-900 px-2.5 py-1.5 rounded-lg border border-gray-800 w-fit">
+                    {drama.viralRate}
+                  </div>
                 </div>
-                <p className="text-gray-400 text-xs leading-relaxed mb-4 line-clamp-3">{drama.plot}</p>
-                <div className="text-[11px] text-gray-500 flex gap-4 mb-6">
-                  <span><strong>Categoría:</strong> {drama.category}</span>
-                  <span><strong>Capítulos Gratis:</strong> {drama.freeEpisodes || 'N/A'}</span>
+
+                <div>
+                  <div className="text-[9px] uppercase font-black text-emerald-400 tracking-wider mb-1">Acceso Libre</div>
+                  <div className="text-xs font-black text-emerald-400 bg-emerald-500/5 px-2.5 py-1 rounded border border-emerald-500/20 w-fit">
+                    {drama.freeEpisodes}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-[9px] uppercase font-black text-gray-500 tracking-wider mb-1">Idioma</div>
+                  <div className="text-xs font-bold text-gray-300">{drama.lang}</div>
                 </div>
               </div>
 
-              {/* Botón con Enlace Profundo Directo */}
-              <a 
-                href={drama.directUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl text-xs text-center transition-all shadow-md hover:shadow-blue-600/20"
-              >
-                Ver Drama en la Web
-              </a>
+              {/* Columna 2 y 3: Sinopsis */}
+              <div className="md:col-span-2 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-black uppercase bg-blue-900/20 text-blue-400 px-2.5 py-0.5 rounded border border-blue-800/30">
+                    {drama.category}
+                  </span>
+                  <h3 className="text-lg font-extrabold text-white mt-2.5 tracking-tight">
+                    {drama.title}
+                  </h3>
+                  <p className="text-gray-400 text-xs leading-relaxed mt-2.5 bg-black/30 p-3 rounded-xl border border-gray-900/60">
+                    <strong className="text-blue-400 block text-[9px] uppercase tracking-wider mb-0.5">Sinopsis del misterio:</strong>
+                    {drama.plot}
+                  </p>
+                </div>
+              </div>
+
+              {/* Columna 4: Redirección */}
+              <div className="flex flex-col justify-center items-stretch md:pl-4 md:border-l border-gray-800/60">
+                <div className="text-center mb-3">
+                  <span className="text-[9px] text-gray-500 block uppercase font-bold tracking-wider">Encontrada en:</span>
+                  <span className="text-xs font-black text-gray-300 block mt-0.5">{drama.platformName}</span>
+                </div>
+                
+                <a 
+                  href={drama.directUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-4 rounded-xl text-xs text-center transition-all shadow-md flex items-center justify-center gap-2"
+                >
+                  <span>La puedes encontrar aquí</span>
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </a>
+              </div>
             </div>
           ))}
         </section>
 
-        {/* Aviso de Grabación - Informativo abajo */}
-        {results.length > 0 && (
-          <div className="mt-12 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 flex gap-3 items-start max-w-2xl mx-auto">
-            <span className="text-amber-500 text-lg">💡</span>
-            <p className="text-xs text-amber-200/80 leading-relaxed">
-              <strong>Consejo de Creador:</strong> Utiliza una herramienta de grabación de pantalla al abrir el drama para capturar los fragmentos más impactantes de los episodios gratuitos y utilizarlos en tu estrategia de contenido.
-            </p>
-          </div>
-        )}
       </main>
     </div>
   )
 }
+
