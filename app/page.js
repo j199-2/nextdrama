@@ -11,10 +11,9 @@ export default function Home() {
     es: {
       subtitle: "NEXTGEN CREATORS ECOSYSTEM",
       slogan: "CREATE • CONNECT • IMPACT",
-      badgeText: "We empower the next generation of CREATORS to turn ideas into IMPACT.",
       toolTitle: "DramaFinder",
       toolVersion: "v1.2",
-      desc: "Localizador de miniseries y dramas verticales web para grabación de pantalla en PC/Móvil.",
+      desc: "Localizador de miniseries y dramas verticales web para creadores de contenido.",
       navButton: "Ir a Roadmap Maestro",
       filterTitle: "Filtro de Contenido AI",
       labelCat: "Selecciona el Nicho Vertical:",
@@ -22,20 +21,21 @@ export default function Home() {
       btnLoading: "Escaneando Sitios Web...",
       resultsTitle: "Dramas Encontrados",
       reqs: "Requisitos: Vertical (9:16) | Gratis Online | Sin Restricciones de App",
-      empty: "Selecciona un nicho de contenido y presiona buscar para extraer los enlaces directos de grabación.",
+      empty: "Selecciona un nicho de contenido y presiona buscar para extraer los enlaces directos.",
       plot: "Sinopsis / Trama:",
       site: "Plataforma:",
-      btnLink: "Abrir para Grabar Pantalla",
+      btnLink: "Ver Drama en la Web",
       caps: "Caps GRATIS",
+      noticeTitle: "💡 NOTA DE FACELESS STRATEGY:",
+      noticeDesc: "Al hacer clic en el botón, el drama se abrirá en una pestaña nueva. Recuerda activar el grabador de pantalla nativo de tu dispositivo (Móvil o PC) con el audio interno encendido antes de reproducir el episodio gratis para capturar tus clips listos para editar.",
       categories: ['Todos', 'Venganza & Karma', 'Multimillonarios & CEO', 'Romance & Drama', 'Hombres Lobo & Fantasía', 'Acción']
     },
     en: {
       subtitle: "NEXTGEN CREATORS ECOSYSTEM",
       slogan: "CREATE • CONNECT • IMPACT",
-      badgeText: "We empower the next generation of CREATORS to turn ideas into IMPACT.",
       toolTitle: "DramaFinder",
       toolVersion: "v1.2",
-      desc: "Web vertical miniseries locator for direct desktop/mobile screen recording.",
+      desc: "Web vertical miniseries locator for content creators.",
       navButton: "Go to Roadmap Maestro",
       filterTitle: "AI Content Filter",
       labelCat: "Select Vertical Niche:",
@@ -43,11 +43,13 @@ export default function Home() {
       btnLoading: "Scanning Web Sites...",
       resultsTitle: "Found Dramas",
       reqs: "Requirements: Vertical (9:16) | Free Online | No App Restrictions",
-      empty: "Select a content niche and press search to extract direct recording links.",
+      empty: "Select a content niche and press search to extract direct links.",
       plot: "Plot / Synopsis:",
       site: "Platform:",
-      btnLink: "Open to Screen Record",
+      btnLink: "Watch Drama on Web",
       caps: "FREE Eps",
+      noticeTitle: "💡 FACELESS STRATEGY NOTE:",
+      noticeDesc: "Clicking the button opens the drama in a new tab. Remember to activate your device's native screen recorder (Mobile or PC) with internal audio enabled before playing the free episode to capture your clips for editing.",
       categories: ['All', 'Vengeance & Karma', 'Billionaires & CEO', 'Romance & Drama', 'Werewolf & Fantasy', 'Action']
     }
   }
@@ -92,7 +94,6 @@ export default function Home() {
         <div className="flex flex-col items-center text-center border-b border-gray-900 pb-8 relative">
           
           <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
-            {/* BOTÓN INTER-HERRAMIENTAS */}
             <a 
               href="https://nextgencreat-l9t7n59ur-nbhjj.vercel.app/"
               className="bg-gradient-to-r from-[#1a1d24] to-[#111317] hover:from-[#252934] hover:to-[#1a1d24] text-xs font-bold tracking-wider text-[#00e5ff] uppercase px-4 py-2.5 rounded-xl border border-[#00e5ff]/20 hover:border-[#00e5ff]/50 shadow-[0_0_15px_rgba(0,229,255,0.1)] hover:shadow-[0_0_20px_rgba(0,229,255,0.25)] transition-all duration-300 flex items-center gap-2"
@@ -103,7 +104,6 @@ export default function Home() {
               {t[lang].navButton}
             </a>
 
-            {/* Selector de Idiomas */}
             <div className="bg-[#0f1115] p-1 rounded-xl border border-gray-800 flex gap-1">
               <button 
                 type="button"
@@ -122,7 +122,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Logotipo Centralizado */}
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full border-2 border-[#bc00dd] flex items-center justify-center shadow-[0_0_15px_rgba(188,0,221,0.6)] bg-black">
               <span className="text-white font-black text-xl tracking-tighter">NG</span>
@@ -137,7 +136,6 @@ export default function Home() {
             {t[lang].slogan}
           </div>
 
-          {/* Eslogan Enmarcado Premium */}
           <div className="mt-5 max-w-xl mx-auto bg-[#050608] border border-[#bc00dd]/40 rounded-lg px-6 py-3 shadow-[inset_0_0_15px_rgba(188,0,221,0.05),0_0_15px_rgba(188,0,221,0.1)]">
             <p className="text-xs md:text-sm text-gray-300 tracking-wide font-medium">
               We empower the next generation of <span className="text-[#bc00dd] font-extrabold">CREATORS</span> to turn ideas into <span className="text-[#00e5ff] font-extrabold">IMPACT.</span>
@@ -205,6 +203,12 @@ export default function Home() {
               )}
             </button>
           </form>
+
+          {/* AVISO DE GRABACIÓN INTERNA INTELIGENTE */}
+          <div className="mt-6 p-4 bg-amber-500/5 border border-amber-500/20 rounded-xl">
+            <h4 className="text-[10px] font-black text-amber-400 tracking-wider uppercase mb-1">{t[lang].noticeTitle}</h4>
+            <p className="text-[11px] text-gray-400 leading-relaxed font-medium">{t[lang].noticeDesc}</p>
+          </div>
         </div>
 
         {/* Panel Resultados */}
@@ -270,7 +274,7 @@ export default function Home() {
         </div>
       </main>
 
-      {/* BARRA INFERIOR DE CARACTERÍSTICAS */}
+      {/* BARRA INFERIOR */}
       <footer className="fixed bottom-0 left-0 w-full bg-[#050608]/90 backdrop-blur-md border-t border-[#bc00dd]/20 py-4 px-4 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.8)]">
         <div className="max-w-6xl mx-auto flex flex-wrap justify-center md:justify-between items-center gap-y-3 gap-x-6 text-center">
           <div className="flex items-center gap-2 px-3">
@@ -303,3 +307,5 @@ export default function Home() {
     </div>
   )
 }
+         
+         
