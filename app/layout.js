@@ -1,23 +1,14 @@
-import Script from 'next/script'
+import './globals.css'
 
 export const metadata = {
-  title: 'NextGen DramaFinder',
-  description: 'Ecosistema de Creadores',
+  title: 'The Drama Journal',
+  description: 'NextGen Creators Radar',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <head>
-        {/* Cargador oficial y seguro para Next.js */}
-        <Script 
-          src="https://cdn.tailwindcss.com" 
-          strategy="beforeInteractive"
-        />
-      </head>
-      <body style={{ margin: 0, padding: 0, backgroundColor: '#050608' }}>
-        {children}
-      </body>
+      <body className="bg-[#050608]">{children}</body>
     </html>
   )
 }
