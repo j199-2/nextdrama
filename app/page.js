@@ -29,7 +29,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen text-white bg-[#050608] font-sans selection:bg-blue-500/30 flex flex-col items-center justify-start p-4 md:p-8">
+    <div className="min-h-screen text-white bg-[#050608] font-sans flex flex-col items-center justify-start p-4 md:p-8">
       
       {/* Contenedor Máximo Centrado */}
       <div className="w-full max-w-4xl flex flex-col items-center">
@@ -47,7 +47,7 @@ export default function Home() {
           </p>
         </header>
 
-        {/* 📰 BOTÓN ÚNICO DE ESCANEO CENTRADO */}
+        {/* 📰 BOTÓN ÚNICO DE BÚSQUEDA CENTRADO */}
         <div className="w-full flex justify-center mb-12">
           <button
             onClick={handleFetchTrends}
